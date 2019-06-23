@@ -7,8 +7,6 @@ import xml
 import json
 from fractions import Fraction
 
-from gen_vasp_input import struct_from_sgnum
-
 
 def all_hspoints_from_file(file_path):
     arr = numpy.loadtxt(file_path, str)
@@ -110,18 +108,6 @@ def write_nn_input_label_based(sgnum: int,
 
 
 if __name__ == "__main__":
-    struct = struct_from_sgnum(
-        sgnum=1,
-        scaling_factor=4.7,
-    )
-    write_nn_input_coord_based(
-        structure=struct,
-        sgnum=1,
-        index=0,
-        all_hs_path="all_hs_files/all_hspoints.txt",
-        vasprun_path="vasprun.xml",
-        write_dir="data_upload/coord_based/",
-    )
     write_nn_input_label_based(
         sgnum=1,
         index=0,

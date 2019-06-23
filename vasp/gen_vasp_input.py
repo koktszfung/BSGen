@@ -7,7 +7,7 @@ from typing import List, Union
 
 
 def struct_from_sgnum(sgnum: int,
-                      scaling_factor: float = 1,
+                      scale: float,
                       lattice_vectors: Union[List[List[float]], numpy.ndarray] = None,
                       init_coords: Union[List[List[float]], numpy.ndarray] = None,
                       species: List[str] = None) -> IStructure:
@@ -19,7 +19,7 @@ def struct_from_sgnum(sgnum: int,
         species = ["Si"] * len(init_coords)
 
     lattice = Lattice(
-        [x * scaling_factor for vector in lattice_vectors for x in vector]
+        [x * scale for vector in lattice_vectors for x in vector]
     )
     structure = IStructure.from_spacegroup(
         sgnum, lattice, species, init_coords
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     print("main start")
     struct = struct_from_sgnum(
         sgnum=1,
-        scaling_factor=4.7,
+        scale=4.7,
         init_coords=numpy.random.rand(1, 3),
     )
     write_vasp_input(
