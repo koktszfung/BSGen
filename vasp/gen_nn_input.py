@@ -111,7 +111,7 @@ if __name__ == "__main__":
     write_nn_input_label_based(
         sgnum=1,
         index=0,
-        all_hs_path="all_hs_files/all_hslabels.txt",
-        vasprun_path="vasprun.xml",
+        all_hs_path="../all_hs_files/all_hslabels.txt",
+        vasprun_path="IOfiles/vasprun.xml",
         write_dir="data_upload/label_based/",
     )
