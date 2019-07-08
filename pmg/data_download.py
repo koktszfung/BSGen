@@ -7,15 +7,14 @@ import json
 
 
 def download(mp_num):
-    mp_id = "mp-" + str(mp_num)
+    mat_id = "mp-" + str(mp_num)
     try:
-        bandstructure = m.get_bandstructure_by_material_id(material_id=mp_id, line_mode=True)
+        bandstructure = m.get_bandstructure_by_material_id(material_id=mat_id, line_mode=True)
         if bandstructure is None:
             return
         bands = bandstructure.bands[Spin.up].T  # (kpoints, bands)
-        spacegroup = m.get_doc(mp_id)["spacegroup"]
+        spacegroup = m.get_doc(mat_id)["spacegroup"]
         sgnum = spacegroup["number"]
-    # error when id is not valid
     except IndexError:
         return
     except pymatgen.ext.matproj.MPRestError:
@@ -56,8 +55,9 @@ all_hs_path = "../all_hs_files/all_hslabels.txt"
 write_dir = "data/input_data_all/"
 n_thread = 180
 
+# downloaded data
 # 1 - 500000 (15924)
-# 500000 - 540000 (17285)
+# 1 - 540000 (17285)
 
 
 def errorfunc(e):
@@ -77,6 +77,7 @@ def main(start, end):
 
 
 if __name__ == "__main__":
-    for i in range(0, 100):
-        print("start", i)
-        main(500000+i*1000, 501000+i*1000)
+    total_start = 500000
+    interval = 10000
+    for i in range(10):
+        main(total_start, total_start+interval * i)
